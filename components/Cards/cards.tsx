@@ -1,28 +1,38 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Button from "../Button/button";
+import axios from "axios";
+import { DELETE_BLOGS } from "@/constants/url";
 
 type cardProps = {
   blogData: { [key: string]: any };
   isBlogDetails?: boolean;
+  deleteBlog?: any;
 };
 
-const Card = ({ blogData, isBlogDetails }: cardProps) => {
+const Card = ({ blogData, isBlogDetails, deleteBlog }: cardProps) => {
   const router = useRouter();
 
-  const toggleContent = (id: any) => {
-    router.push(`blog-details/${id}`);
-  };
+  // const toggleContent = (id: any) => {
+  //   router.push(`blog-details/${id}`);
+  // };
 
+  const formatDate = (date: any) => {
+    const inputDate = new Date(date);
+
+    const day = String(inputDate.getDate()).padStart(2, "0");
+    const month = String(inputDate.getMonth() + 1).padStart(2, "0");
+    const year = inputDate.getFullYear();
+    const formattedDate = `${day}-${month}-${year}`;
+    return formattedDate;
+  };
   return (
-    <div className="flex flex-wrap gap-6 justify-center p-8">
-      {!blogData[0]?.message ? (
+    <div className="flex flex-col gap-y-4 p-8">
+      {blogData?.length ? (
         blogData?.map((data: any, index: number) => (
           <div
             key={data.id}
-            className={`border-black bt-[2px] border-[2px] ${
-              !isBlogDetails && "md:basis-1/3 "
-            }basis-full  p-4 rounded-2xl bg-gray-200 flex flex-col shadow-gray-300 shadow-md`}
+            className={`border-black bt-[2px] basis-full border-[2px] p-4 rounded-2xl bg-gray-200 shadow-gray-300 shadow-md`}
           >
             <div className="flex flex-col card-details">
               <div>
@@ -35,7 +45,7 @@ const Card = ({ blogData, isBlogDetails }: cardProps) => {
               </div>
               <div>
                 <span className="font-semibold">Publish Date: </span>
-                {data?.date_published}
+                {formatDate(data?.date)}
               </div>
             </div>
             <div className="card-content">
@@ -45,10 +55,17 @@ const Card = ({ blogData, isBlogDetails }: cardProps) => {
             </div>
             <div className="read-more mt-auto pt-4">
               {!isBlogDetails && (
-                <Button
-                  name="Read More"
-                  onClick={() => toggleContent(data?.id)}
-                />
+                <div className="flex gap-x-4">
+                  {/* <Button
+                    name="Read More"
+                    // onClick={() => toggleContent(data?._id)}
+                  /> */}
+                  <Button
+                    name="Delete"
+                    className={"bg-red-500 text-white p-2 rounded-md px-8"}
+                    onClick={() => deleteBlog(data?._id)}
+                  />
+                </div>
               )}
             </div>
           </div>
@@ -56,7 +73,7 @@ const Card = ({ blogData, isBlogDetails }: cardProps) => {
       ) : (
         <>
           <div className="text-red-500 font-semibold text-center text-2xl">
-            {blogData[0]?.message}
+            {`No data available`}
           </div>
         </>
       )}

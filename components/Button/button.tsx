@@ -2,13 +2,26 @@
 
 import React from "react";
 
-const Button = ({ name, onClick }: any) => {
+type ButtonProps = {
+  type?: "submit" | "reset" | "button";
+  name?: string;
+  onClick?: any;
+  className?: any;
+  disabled?: boolean;
+};
+const Button = ({ name, onClick, className, type, disabled }: ButtonProps) => {
+  // py-1 bg-blue-500 px-4 rounded-md text-white hover:ring-4 hover:ring-blue-500/50
   return (
     <>
       <button
-        // onClick={redirect}
+        type={type}
+        disabled={disabled}
         onClick={onClick}
-        className="bg-blue-500 py-1 px-4 rounded-md text-white  hover:ring-4 hover:ring-blue-500/50"
+        className={`${
+          className
+            ? className
+            : "py-1 bg-blue-500 px-4 rounded-md text-white hover:ring-4 hover:ring-blue-500/50"
+        } ${disabled && "opacity-50 cursor-not-allowed"}`}
       >
         {name}
       </button>

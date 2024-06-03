@@ -15,6 +15,7 @@ const Footer = () => {
               {NAVIGATION_LINKS.map((data: any, index: number) => (
                 <>
                   <Link
+                    key={index}
                     className={`px-2 ${
                       index !== NAVIGATION_LINKS.length - 1 && "border-r"
                     }`}

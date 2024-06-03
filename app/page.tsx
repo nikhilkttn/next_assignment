@@ -1,5 +1,9 @@
+"use client";
 import React from "react";
-
+import Input from "@/components/Input/Input";
+import TextArea from "@/components/TextArea/textArea";
+import Button from "@/components/Button/button";
+import Link from "next/link";
 const HomePage = () => {
   return (
     <>
