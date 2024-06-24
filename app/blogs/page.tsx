@@ -12,18 +12,6 @@ const BlogsPages = () => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    const email = localStorage.getItem("email");
-    const token = localStorage.getItem("token");
-    if (!email && !token) {
-      alert("Please login to read the blogs.");
-      router.push("/login");
-    }
-    setEmail(email);
-    setToken(token);
-    fetchDataFromApi();
-  }, []);
-
   const fetchDataFromApi = async () => {
     try {
       const payload: any = {
@@ -36,6 +24,18 @@ const BlogsPages = () => {
       console.log("api failed");
     }
   };
+
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+    const token = localStorage.getItem("token");
+    if (!email && !token) {
+      alert("Please login to read the blogs.");
+      router.push("/login");
+    }
+    setEmail(email);
+    setToken(token);
+    fetchDataFromApi();
+  }, []);
 
   const deleteBlog = async (blogId: any) => {
     const deleteTheBlog = window.confirm(
@@ -50,7 +50,7 @@ const BlogsPages = () => {
         };
         const response = await axios.post(DELETE_BLOGS, payload);
         if (response?.data?.statusCode === 200) {
-          fetchDataFromApi();
+          // fetchDataFromApi();
         }
       } catch (err: any) {
         console.log("err==>", err);

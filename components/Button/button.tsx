@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-
+import Image from "next/image";
 type ButtonProps = {
   type?: "submit" | "reset" | "button";
   name: string;
@@ -43,7 +43,15 @@ const Button = ({
         } ${disabled && "opacity-50 cursor-not-allowed"}`}
       >
         {name}
-        <img src={img} alt="" />
+        {/* <img src={img} alt="" /> */}
+        {img && (
+          <Image
+            src={img} // Replace with the actual path to your image
+            alt="button-img"
+            width={15} // Width of the image container
+            height={15} // Height of the image container
+          />
+        )}
       </button>
     </>
   );

@@ -21,6 +21,8 @@ const LoginForm = () => {
     const getToken = localStorage.getItem("token");
 
     if (getEmail && getToken) {
+      alert("You are already logged in. Redirecting you to blogs Page.....");
+
       router.push("/blogs");
     }
   }, []);
