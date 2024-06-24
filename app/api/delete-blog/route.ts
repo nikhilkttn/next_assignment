@@ -4,7 +4,7 @@ import Blogs from "@/Model/Blogs";
 import connectDB from "@/app/lib/dbConnect";
 import { NextResponse } from "next/server";
 
-export async function POST(req: any, res: any) {
+export async function POST(req: Request) {
   try {
     await connectDB();
     const { id, email } = await req.json();

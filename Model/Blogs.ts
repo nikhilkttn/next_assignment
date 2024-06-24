@@ -7,6 +7,7 @@ const blogSchema = new mongoose.Schema({
   content: { type: String, required: true },
   author: { type: String, required: true },
   authorEmail: { type: String, required: true },
+  id: { type: Number, require: true },
 });
 
 export default mongoose.models.Blog || mongoose.model("Blog", blogSchema);

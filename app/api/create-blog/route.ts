@@ -4,12 +4,18 @@ import Blogs from "@/Model/Blogs";
 import connectDB from "@/app/lib/dbConnect";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: any, res: any) {
+export async function POST(req: Request) {
   await connectDB();
 
   try {
     const response: any = await req.json();
     const { title, content, date, email, author } = response;
+
+    // Find the last blog entry to get the current highest id
+    const lastBlog = await Blogs.findOne().sort({ id: -1 });
+
+    // Determine the new id for the next blog entry
+    const newId = (lastBlog ? lastBlog.id : 0) + 1;
 
     // Check if a blog with the same title already exists for the author
     const existingBlog = await Blogs.findOne({ title, authorEmail: email });
@@ -21,7 +27,14 @@ export async function POST(req: any, res: any) {
     }
 
     // Create a new blog if no duplicate is found
-    await Blogs.create({ title, date, content, author, authorEmail: email });
+    await Blogs.create({
+      title,
+      date,
+      content,
+      author,
+      authorEmail: email,
+      id: newId,
+    });
     return NextResponse.json(
       { message: "Blog created successfully", statusCode: 200 },
       { status: 200 }

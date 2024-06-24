@@ -7,14 +7,13 @@ async function getData() {
   const data = await res.json();
   return data;
 }
-const HomePage = async () => {
+const AboutPage = async () => {
   const data = await getData();
-  console.log("data===>", data);
   return (
     <>
       <div className="font-semibold text-center">
         <span className="text-center border-black border-b-2 pb-2">
-          Welcome to Home Page
+          About Us Page
         </span>
         <div className="border-gray-300 border-[2px] shadow-lg rounded-lg m-10 p-5">
           {data?.map((data: any) => (
@@ -30,4 +29,4 @@ const HomePage = async () => {
   );
 };
 
-export default HomePage;
+export default AboutPage;

@@ -9,10 +9,20 @@ export async function POST(req: any, res: any) {
 
   try {
     const result = await req?.json();
-    const { email } = result;
+    const { email, id } = result;
     const user = await Users.findOne({ email });
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 400 });
+    }
+
+    if (id) {
+      const blog: any = await Blogs.find({ id: id });
+      return NextResponse.json({ data: blog });
+    } else if (id) {
+      return NextResponse.json(
+        { message: `No blog found for ${id}` },
+        { status: 404 }
+      );
     }
 
     const userBlogs = await Blogs.find({ authorEmail: email });

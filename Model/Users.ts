@@ -1,10 +1,10 @@
 // models/User.js
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+import Inc from "mongoose-sequence";
 
 const userSchema = new mongoose.Schema({
-  name:{ type: String, required: true },
+  name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
 });
-
-export default mongoose.models.User || mongoose.model('User', userSchema);
+export default mongoose.models.User || mongoose.model("User", userSchema);

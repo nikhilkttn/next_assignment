@@ -12,8 +12,8 @@ const Navigation = () => {
     router.push("/");
   };
   return (
-    <div className="flex justify-center pt-4">
-      <div className="flex rounded-lg border-gray-300 border-[1px]">
+    <div className="flex flex-wrap justify-center pt-4">
+      <div className="flex rounded-lg flex-wrap border-gray-300 border-[1px]">
         {NAVIGATION_LINKS.map((data: any, index: number) => (
           <>
             <div className="flex flex-wrap gap-x-10 p-4 text-blue-500 font-semibold">

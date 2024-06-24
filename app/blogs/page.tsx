@@ -29,7 +29,7 @@ const BlogsPages = () => {
       const payload: any = {
         email: localStorage.getItem("email") || "",
       };
-      const response: any = await axios.post(READ_BLOGS, payload);
+      const response: any = await axios.post(`${READ_BLOGS}`, payload);
 
       setApiData(response?.data?.data);
     } catch {
@@ -56,6 +56,10 @@ const BlogsPages = () => {
         console.log("err==>", err);
       }
     }
+  };
+
+  const toggleContent = (id: any) => {
+    router.push(`blog-details/${id}`);
   };
 
   return (

@@ -59,11 +59,10 @@ const LoginForm = () => {
         password,
       });
       if (Number(response?.data?.statusCode) === 200) {
+        localStorage.setItem("email", response?.data?.user?.email);
+        localStorage.setItem("token", response?.data?.user?.token);
         router.push("/blogs");
       }
-
-      localStorage.setItem("email", response?.data?.user?.email);
-      localStorage.setItem("token", response?.data?.user?.token);
     } catch (error: any) {
       alert("somethin went wrong");
     }
